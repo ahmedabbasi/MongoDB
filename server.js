@@ -25,16 +25,10 @@ console.log(db);
 
 var PORT = 3000;
 
-//var databaseUri = "mongodb://localhost/scraper";
+var databaseUri = "mongodb://localhost/scraper";
 //
-//mongoose.connect(databaseUri)
+mongoose.connect(databaseUri)
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
-
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
 
 // Routes
 
@@ -45,7 +39,7 @@ app.get("/scrape", function (req, res) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
-    // Now, we grab every h4 within an article tag, and do the following:
+    // Now, we grab every h2 within an article tag, and do the following:
     $("article h4").each(function (i, element) {
       // Save an empty result object
       var result = {};
@@ -81,8 +75,7 @@ app.get("/articles", function(req, res) {
   db.Article.find()
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
-      res.json.toString(dbArticle);
-      res.render(dbArticle);
+      res.json(dbArticle);
     })
     .catch(function(err) {
       console.log(err);
@@ -97,7 +90,6 @@ app.get("/comments", function (req, res) {
     .then(function (dbComment) {
       // If any Books are found, send them to the client
       res.json(dbComment);
-      res.render(dbComment);
     })
     .catch(function (err) {
       // If an error occurs, send it back to the client
@@ -131,8 +123,7 @@ app.post("/submit", function(req, res) {
     })
     .then(function(dbArticle) {
       // If the User was updated successfully, send it back to the client
-      res.json(dbArticle);
-      res.render(dbArticle)
+      res.json(dbUser);
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
