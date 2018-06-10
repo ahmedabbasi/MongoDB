@@ -70,6 +70,9 @@ app.get("/scrape", function (req, res) {
   });
 });
 
+
+
+
 app.get("/articles", function(req, res) {
   // Grab every document in the Articles collection
   db.Article.find()
@@ -84,9 +87,10 @@ app.get("/articles", function(req, res) {
     });
 });
 
+
 app.get("/comments", function (req, res) {
   // Using our Book model, "find" every book in our db
-  db.Comment.find({})
+  db.Comment.find()
     .then(function (dbComment) {
       // If any Books are found, send them to the client
       res.json(dbComment);
@@ -96,6 +100,7 @@ app.get("/comments", function (req, res) {
       res.json(err);
     });
 });
+
 
 app.get("/populated", function (req, res) {
   // Using our Library model, "find" every library in our db and populate them with any associated books
@@ -123,7 +128,7 @@ app.post("/submit", function(req, res) {
     })
     .then(function(dbArticle) {
       // If the User was updated successfully, send it back to the client
-      res.json(dbUser);
+      res.json(dbArticle);
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client

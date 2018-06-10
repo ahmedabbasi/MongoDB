@@ -8,8 +8,9 @@ $.getJSON("/articles", function(data) {
 });
 
 
+
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function() {
+$(document).on("click", "h4", function() {
   // Empty the notes from the note section
   $("#comments").empty();
   // Save the id from the p tag
@@ -18,7 +19,7 @@ $(document).on("click", "p", function() {
   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
-    url: "/articles/" + thisId
+    url: "/comments/" + thisId
   })
     // With that done, add the note information to the page
     .then(function(data) {
