@@ -88,7 +88,7 @@ app.get("/articles", function(req, res) {
 });
 
 
-app.get("/comments", function (req, res) {
+app.get("/comment", function (req, res) {
   // Using our Book model, "find" every book in our db
   db.Comment.find()
     .then(function (dbComment) {
