@@ -20,10 +20,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
 
-var db = require("./models/index.js");
+//var db = require("./models/index.js");
+var db = mongoose.connection
 console.log(db);
 
-var PORT = 3000;
+//var PORT = 3000;
 
 var databaseUri = "mongodb://localhost/scraper";
 //
