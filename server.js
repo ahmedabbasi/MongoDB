@@ -16,24 +16,25 @@ app.use(logger("dev"));
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: false }));
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-app.use(express.static("public"));
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 
-//var db = require("./models/index.js");
-var db = mongoose.connection
-console.log(db);
+var db = mongoose.connection;
 
-//var PORT = 3000;
+// Show any Mongoose errors
+db.on('error', function(err) {
+  console.log('Mongoose Error: ', err);
+});
 
-var databaseUri = "mongodb://localhost/scraper";
-//
-
-if(process.env.MONGODB_URI){
-  mongoose.connect(process.env.MONGODB_URI)
-} else{
-mongoose.connect(databaseUri)
-}
+// Once logged in to the db through mongoose, log a success message
+db.once('open', function() {
+  console.log('Mongoose connection successful.');
+});
 
 
 // Routes
