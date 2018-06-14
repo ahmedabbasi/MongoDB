@@ -20,9 +20,9 @@ app.use(express.static("public"));
 
 var db = require('./models');
 
-var PORT =3000;
+var PORT = process.env.PORT||3000;
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
+var MONGODB_URI = "mongodb://heroku_9qt67x82:8frg0fu62si5cpf72e7mlis8u2@ds153980.mlab.com:53980/heroku_9qt67x82"
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
